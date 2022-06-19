@@ -9,24 +9,36 @@ h1 {
     font-size: 30px;
 }
 
-.big-box {
+.paint-section {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-left: 40px;
+}
+
+.colors {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-left: 10px;
+}
+
+.option-box {
+    width: 500px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-between;
+}
+
+canvas {
     width: 500px;
     border: 1px solid rgba(0, 0, 0, 0.7);
     box-shadow: 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.3);
     padding: 1px 2px 1px 2px;
     box-sizing: border-box;
-}
-
-.btn {
-    border: 1px solid rgba(0, 0, 0, 0.7);
-    box-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.3);
-    border-radius: 3px;
-    width: 95px;
-}
-
-canvas {
+    display: flex;
+    flex-flow: row nowrap;
     height: 500px;
     border-radius: 10px;
+    margin-bottom: 5px;
 }
 
 .option {
@@ -35,4 +47,38 @@ canvas {
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    box-shadow: 1.5px 1.5px 1.5px rgba(0, 0, 0, 0.3);
+    padding: 1px 1px 1px 1px;
+    box-sizing: border-box;
+}
+
+.paint-option {
+    width: 378px;
+}
+
+.setting-option {
+    width: 115px;
+}
+
+.btn {
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    box-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 95px;
+    text-align: center;
+    margin-right: 1px;
+}
+
+.option .btn:last-child {
+    margin-right: 0px;
+}
+
+.color {
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    background-color: black;
+    margin-bottom: 10px;
+    border: 1px solid black;
 }
