@@ -3,6 +3,10 @@ body {
     flex-flow: column;
     align-items: center;
     width: 100vw;
+    -webkit-user-select:none;
+    -moz-user-select:none;
+    -ms-user-select:none;
+    user-select:none
 }
 
 h1 {
@@ -68,6 +72,12 @@ canvas {
     width: 95px;
     text-align: center;
     margin-right: 1px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.btn i{
+    z-index: -1;
 }
 
 .option .btn:last-child {
@@ -81,4 +91,19 @@ canvas {
     background-color: black;
     margin-bottom: 10px;
     border: 1px solid black;
+}
+
+.pressed-btn {
+    background-color: rgba(0, 0, 0, 0.3);
+    box-shadow: none;
+}
+
+.red-btn {
+    background-color: red;
+    color:black;
+}
+
+.orange-btn {
+    background-color: orange;
+    color:black;
 }
