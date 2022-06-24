@@ -1,8 +1,17 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext('2d');
 
+const span = document.createElement("span");
+
 const colorBtns = document.querySelectorAll(".color");
 const btns = document.querySelectorAll(".btn");
+const paintingBtn = document.querySelector("#paintingJS");
+const erasingBtn = document.querySelector("#erasingJS");
+const paintingBackgroundBtn = document.querySelector("#paintingBackgroundJS");
+const makingSquareBtn = document.querySelector("#makingSquareJS");
+const currentToolState = document.querySelector(".currentTool span:last-child");
+const sizeController = document.querySelector(".currentSizeForm input");
+const currentSizeState = document.querySelector(".currentSize");
 
 const PAINTING = "painting";
 const ERASING = "erasing";
@@ -15,11 +24,6 @@ const canvasSizeY = 500;
 let currentTool = PAINTING;
 let painting = false;
 let currentColor = "black";
-
-const paintingBtn = document.querySelector("#paintingJS");
-const erasingBtn = document.querySelector("#erasingJS");
-const paintingBackgroundBtn = document.querySelector("#paintingBackgroundJS");
-const makingSquareBtn = document.querySelector("#makingSquareJS");
 
 function changeToolForPainting() {
     resetCanvasEventListener();
@@ -154,6 +158,18 @@ function makeToolChangers() {
     makingSquareBtn.addEventListener("click", changeToolForMakingSquare);
 }
 
+function showCurrentTool() {
+    if (currentTool === PAINTING) {
+        currentToolState.innerHTML = "<i class=\"fa-solid fa-pen\"></i>"
+    } else if (currentTool === ERASING) {
+        currentToolState.innerHTML = "<i class=\"fa-solid fa-eraser\"></i>"
+    } else if (currentTool === PAINTING_BACKGROUND) {
+        currentToolState.innerHTML = "<i class=\"fa-solid fa-fill-drip\"></i>"
+    } else if (currentTool === MAKING_SQUARE) {
+        currentToolState.innerHTML = "<i class=\"fa-solid fa-square\"></i>"
+    }
+}
+
 function checkCurrentTool() {
     if (currentTool === PAINTING) {
         canvas.addEventListener("mousemove", checkMousePosition);
@@ -173,10 +189,23 @@ function checkCurrentTool() {
         canvas.addEventListener("mouseleave", paintSquare);
     }
     console.log("Current Tool is " + currentTool);
+    showCurrentTool();
 }
 
-Array.from(colorBtns).forEach(color => color.addEventListener("click", getColor));
+function showCurrentColor() {
+    const currentColorSpan = span;
+    currentColorSpan.setAttribute("style", "background-color = " + currentColor);
+    currentColorSpan.setAttribute("width", "10px");
+    currentColorSpan.setAttribute("height", "10px");
+    currentSizeState.appendChild(currentColorSpan);
+}
+
+function checkCurrentColor() {
+    Array.from(colorBtns).forEach(color => color.addEventListener("click", getColor));
+    showCurrentColor();
+}
 
 makeBtnsInteractive();
 makeToolChangers();
 checkCurrentTool();
+checkCurrentColor();

@@ -10,6 +10,30 @@
 </head>
 <body>
     <h1>PaintJS</h1>
+    <section class="currentStateSection">
+        <div class="currentTool">
+            <span>Current Tool : </span>
+            <span></span>
+        </div>
+        <div class="currentSize">
+            <span>Current Size & Color : </span>
+        </div>
+        <form class="currentSizeForm">
+            <input type="range" name="size" id="size" min="0.1" max="10" step="0.1">
+        </form>
+    </section>
+    <section class="option-box">
+        <div class="option paint-option">
+            <div class="btn" id="paintingJS"><i class="fa-solid fa-pen"></i></div>
+            <div class="btn" id="paintingBackgroundJS"><i class="fa-solid fa-fill-drip"></i></div>
+            <div class="btn" id="makingSquareJS"><i class="fa-solid fa-square"></i></div>
+            <div class="btn" id="erasingJS"><i class="fa-solid fa-eraser"></i></div>
+        </div>
+        <div class="option setting-option">
+            <div class="btn">Erase</div>
+            <div class="btn">Save</div>
+        </div>
+    </section>
     <section class="paint-section">
         <canvas width="500px" height="500px"></canvas>
         <div class="colors">
@@ -22,18 +46,6 @@
             <div style="background-color: purple" class="color"></div>
             <div style="background-color: black" class="color"></div>
             <div style="background-color: white" class="color"></div>
-        </div>
-    </section>
-    <section class="option-box">
-        <div class="option paint-option">
-            <div class="btn" id="paintingJS"><i class="fa-solid fa-pen"></i></div>
-            <div class="btn" id="paintingBackgroundJS"><i class="fa-solid fa-fill-drip"></i></div>
-            <div class="btn" id="makingSquareJS"><i class="fa-solid fa-square"></i></div>
-            <div class="btn" id="erasingJS"><i class="fa-solid fa-eraser"></i></div>
-        </div>
-        <div class="option setting-option">
-            <div class="btn">Erase</div>
-            <div class="btn">Save</div>
         </div>
     </section>
 </body>
