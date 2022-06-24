@@ -8,7 +8,9 @@ const PAINTING = "painting";
 const ERASING = "erasing";
 const PAINTING_BACKGROUND = "painting background";
 const MAKING_SQUARE = "making sqaure";
-const MAKING_CIRCLE = "making circle";
+
+const canvasSizeX = 500;
+const canvasSizeY = 500;
 
 let currentTool = PAINTING;
 let painting = false;
@@ -18,7 +20,6 @@ const paintingBtn = document.querySelector("#paintingJS");
 const erasingBtn = document.querySelector("#erasingJS");
 const paintingBackgroundBtn = document.querySelector("#paintingBackgroundJS");
 const makingSquareBtn = document.querySelector("#makingSquareJS");
-const makingCircleBtn = document.querySelector("#makingCircleJS");
 
 function changeToolForPainting() {
     resetCanvasEventListener();
@@ -44,12 +45,6 @@ function changeToolForMakingSquare() {
     checkCurrentTool();
 }
 
-function changeToolForMakingCircle() {
-    resetCanvasEventListener();
-    currentTool = MAKING_CIRCLE;
-    checkCurrentTool();
-}
-
 function checkMousePosition(event) {
     const x = event.offsetX;
     const y = event.offsetY;
@@ -63,6 +58,45 @@ function checkMousePosition(event) {
     }
 }
 
+function eraseMousePosition(event) {
+    const x = event.offsetX;
+    const y = event.offsetY;
+    ctx.strokeStyle = "white";
+    if (!painting) {
+        ctx.beginPath(x, y);
+        ctx.moveTo(x, y);
+    } else {
+        ctx.lineTo(x, y);
+        ctx.stroke();
+    }
+}
+
+function paintAllCanvas() {
+    ctx.fillStyle = currentColor;
+    ctx.fillRect(0, 0, canvasSizeX, canvasSizeY);
+}
+
+let startXForMakingSquare = 0;
+let startYForMakingSquare = 0;
+
+function checkStartPositionForMakingSquare(event) {
+    startXForMakingSquare = event.offsetX;
+    startYForMakingSquare = event.offsetY;
+    startPainting();
+}
+
+function paintSquare(event) {
+    if (painting === true) {
+        const x = event.offsetX;
+        const y = event.offsetY;
+        const width = x - startXForMakingSquare;
+        const height = y - startYForMakingSquare;
+        ctx.fillStyle = currentColor;
+        ctx.fillRect(startXForMakingSquare, startYForMakingSquare, width, height);
+    }
+    stopPainting();
+}
+
 function startPainting() {
     painting = true;
 }
@@ -73,7 +107,7 @@ function stopPainting() {
 
 function getColor(event) {
     currentColor = event.target.style.backgroundColor;
-    console.log(currentColor);
+    console.log("Current Color is "+currentColor);
 }
 
 function showPressBtn(event) {
@@ -92,10 +126,18 @@ function resetCanvasEventListener() {
         canvas.removeEventListener("mousedown", startPainting);
         canvas.removeEventListener("mouseup", stopPainting);
         canvas.removeEventListener("mouseleave", stopPainting);
-    } else if(currentTool === ERASING) {
+    } else if (currentTool === ERASING) {
+        canvas.removeEventListener("mousemove", eraseMousePosition);
+        canvas.removeEventListener("mousedown", startPainting);
+        canvas.removeEventListener("mouseup", stopPainting);
+        canvas.removeEventListener("mouseleave", stopPainting);
+        ctx.strokeStyle = currentColor;
     } else if (currentTool === PAINTING_BACKGROUND) {
+        canvas.removeEventListener("click", paintAllCanvas);
     } else if (currentTool === MAKING_SQUARE) {
-    } else if (currentTool === MAKING_CIRCLE) {
+        canvas.removeEventListener("mousedown", checkStartPositionForMakingSquare);
+        canvas.removeEventListener("mouseup", paintSquare);
+        canvas.removeEventListener("mouseleave", paintSquare);
     }
 }
 
@@ -110,7 +152,6 @@ function makeToolChangers() {
     erasingBtn.addEventListener("click", changeToolForErasing);
     paintingBackgroundBtn.addEventListener("click", changeToolForPaintingBackground);
     makingSquareBtn.addEventListener("click", changeToolForMakingSquare);
-    makingCircleBtn.addEventListener("click", changeToolForMakingCircle);
 }
 
 function checkCurrentTool() {
@@ -120,11 +161,18 @@ function checkCurrentTool() {
         canvas.addEventListener("mouseup", stopPainting);
         canvas.addEventListener("mouseleave", stopPainting);
     } else if(currentTool === ERASING) {
+        canvas.addEventListener("mousemove", eraseMousePosition);
+        canvas.addEventListener("mousedown", startPainting);
+        canvas.addEventListener("mouseup", stopPainting);
+        canvas.addEventListener("mouseleave", stopPainting);
     } else if (currentTool === PAINTING_BACKGROUND) {
+        canvas.addEventListener("click", paintAllCanvas);
     } else if (currentTool === MAKING_SQUARE) {
-    } else if (currentTool === MAKING_CIRCLE) {
+        canvas.addEventListener("mousedown", checkStartPositionForMakingSquare);
+        canvas.addEventListener("mouseup", paintSquare);
+        canvas.addEventListener("mouseleave", paintSquare);
     }
-    console.log(currentTool);
+    console.log("Current Tool is " + currentTool);
 }
 
 Array.from(colorBtns).forEach(color => color.addEventListener("click", getColor));
