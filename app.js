@@ -211,7 +211,19 @@ function checkSizeFromInput() {
     console.log("Current Size = " + currentSize);
 }
 
+const eraseWholeCanvasBtn = document.querySelector(".eraseWholeCanvasBtnJS");
+
+function eraseWholeCanvas() {
+    ctx.fillStyle = "white";
+    ctx.fillRect(0, 0, canvasSizeX, canvasSizeY);
+}
+
+function makeErasingWholeCanvasBtn() {
+    eraseWholeCanvasBtn.addEventListener("click", eraseWholeCanvas);
+}
+
 makeBtnsInteractive();
 makeToolChangers();
 checkCurrentTool();
 checkCurrentColor();
+makeErasingWholeCanvasBtn();
