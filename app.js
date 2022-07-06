@@ -205,6 +205,12 @@ function checkCurrentColor() {
     showCurrentColor();
 }
 
+function checkSizeFromInput() {
+    const currentSize = sizeController.value
+    ctx.lineWidth = currentSize;
+    console.log("Current Size = " + currentSize);
+}
+
 makeBtnsInteractive();
 makeToolChangers();
 checkCurrentTool();

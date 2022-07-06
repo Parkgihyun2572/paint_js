@@ -42,6 +42,18 @@ h1 {
     margin-right: 5px;
 }
 
+.currentSize {
+    display: flex;
+    flex-flow: row nowrap;
+    margin-right: 2px;
+    border: 1px solid rgba(0, 0, 0, 0.7);
+    box-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.3);
+    box-sizing: border-box;
+    padding-left: 3px;
+    padding-right: 3px;
+    border-radius: 5px;
+}
+
 .paint-section {
     display: flex;
     flex-flow: row nowrap;
