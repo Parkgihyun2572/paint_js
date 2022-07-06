@@ -20,6 +20,8 @@ const MAKING_SQUARE = "making sqaure";
 
 const canvasSizeX = 500;
 const canvasSizeY = 500;
+ctx.fillStyle = "white";
+ctx.fillRect(0, 0, canvasSizeX, canvasSizeY);
 
 let currentTool = PAINTING;
 let painting = false;
@@ -212,6 +214,7 @@ function checkSizeFromInput() {
 }
 
 const eraseWholeCanvasBtn = document.querySelector(".eraseWholeCanvasBtnJS");
+const saveBtn = document.querySelector(".saveBtnJS");
 
 function eraseWholeCanvas() {
     ctx.fillStyle = "white";
@@ -222,8 +225,22 @@ function makeErasingWholeCanvasBtn() {
     eraseWholeCanvasBtn.addEventListener("click", eraseWholeCanvas);
 }
 
+function saveImage() {
+    const imgURL = canvas.toDataURL();
+    const link = document.createElement("a");
+    link.href = imgURL;
+    link.download = "paintJS";
+    console.log(link);
+    link.click();
+}
+
+function makeSaveBtn() {
+    saveBtn.addEventListener("click", saveImage);
+}
+
 makeBtnsInteractive();
 makeToolChangers();
 checkCurrentTool();
 checkCurrentColor();
 makeErasingWholeCanvasBtn();
+makeSaveBtn();
